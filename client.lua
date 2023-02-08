@@ -32,24 +32,7 @@ CreateThread(function()
 end)
 
 
-
-CreateThread(function()
-    exports['qb-target']:AddTargetModel('u_m_y_proldriver_01', {
-        options = {
-            { 
-                type = "client",
-                event = "tc-pawnshop-openMenu",
-                icon = "fas fa-circle-dollar-to-slot", 
-                label = "What You Got For Me?",
-            },
-        },
-        distance = 3.0 
-    })
-end)
-
-
-
-RegisterNetEvent('tc-pawnshop-openMenu', function()
+local function shopMenu()
     local shop = {
         {
             header = '💰Pawnshop💰',
@@ -69,7 +52,27 @@ RegisterNetEvent('tc-pawnshop-openMenu', function()
         }
     }
     exports['qb-menu']:openMenu(shop)
+end
+
+
+
+CreateThread(function()
+    exports['qb-target']:AddTargetModel('u_m_y_proldriver_01', {
+        options = {
+            { 
+                action = function()
+			shopMenu()
+		end,
+                icon = "fas fa-circle-dollar-to-slot", 
+                label = "What You Got For Me?",
+            },
+        },
+        distance = 3.0 
+    })
 end)
+
+
+
 
 
 RegisterNetEvent('tc-pawnshop-cl-sellItems', function()
